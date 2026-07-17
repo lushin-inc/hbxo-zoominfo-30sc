@@ -79,8 +79,12 @@ body{font-family:'Poppins',Arial,sans-serif;color:var(--body);background:#f7f8fa
 .callout.tip .callout-title{color:var(--energetic)}
 p+p{margin-top:10px}
 .step-body>p{font-size:15px}
-details.ref{margin-top:14px;font-size:14px}
-details.ref summary{cursor:pointer;font-weight:600;color:var(--energetic)}
+details.ref{margin-top:14px;font-size:14px;background:#e6f7fe;border:1px solid #8fd8f5;border-left:4px solid var(--fresh);border-radius:10px;padding:14px 18px}
+details.ref summary{cursor:pointer;user-select:none;font-weight:600;color:var(--stable);font-size:15px;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:10px}
+details.ref summary::-webkit-details-marker{display:none}
+details.ref summary::after{content:"\25BE";color:var(--fresh);font-size:20px;transition:transform .2s;flex:none}
+details.ref[open] summary::after{transform:rotate(180deg)}
+details.ref[open] summary{margin-bottom:6px}
 details.ref table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13.5px}
 details.ref th{background:var(--stable);color:#fff;text-align:left;padding:8px 10px;font-weight:600}
 details.ref td{padding:7px 10px;border-bottom:1px solid #ddd}
@@ -307,7 +311,7 @@ Virginia</pre></div>
 423730
 423210
 423440</pre></div>
-    <details class="ref"><summary>What each code means (reference only &mdash; don't paste this)</summary>
+    <details class="ref"><summary>&#128064; What each code means &mdash; open this, it's worth a look (just don't paste it)</summary>
       <table><tr><th>Code</th><th>Industry</th></tr>
       <tr><td class="mono">324122</td><td>Asphalt Shingle &amp; Coating Materials Mfg (roofing)</td></tr>
 <tr><td class="mono">327993</td><td>Mineral Wool Mfg (insulation)</td></tr>
