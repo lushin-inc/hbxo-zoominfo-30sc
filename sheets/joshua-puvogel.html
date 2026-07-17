@@ -90,6 +90,13 @@ details.ref th{background:var(--stable);color:#fff;text-align:left;padding:8px 1
 details.ref td{padding:7px 10px;border-bottom:1px solid #ddd}
 details.ref tr:nth-child(even) td{background:var(--gray)}
 .mono{font-family:'SF Mono',Menlo,Consolas,monospace;font-weight:600;color:var(--stable)}
+.naics-add{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.naics-add input{flex:1;min-width:130px;border:1px solid #b5b5c8;border-radius:8px;padding:8px 12px;font-family:'Poppins',Arial,sans-serif;font-size:14px;background:#fff}
+.naics-add button{background:var(--fresh);color:#fff;border:none;border-radius:999px;padding:8px 26px;font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:13px;cursor:pointer}
+.naics-add button:hover{background:var(--energetic)}
+.row-x{background:none;border:none;color:var(--passionate);font-weight:600;font-size:17px;cursor:pointer;line-height:1;padding:2px 6px}
+.row-restore{background:none;border:none;color:var(--energetic);font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:12px;cursor:pointer;padding:2px 4px}
+#naicsTable tr.removed td:not(:last-child){opacity:.4;text-decoration:line-through}
 ol.mini{margin:10px 0 4px 22px;font-size:15px}
 ol.mini li{margin-bottom:6px}
 ul.mini{margin:10px 0 4px 22px;font-size:15px}
@@ -280,55 +287,18 @@ Kansas</pre></div>
       <li>NAICS codes are government classifications: if industry is "red," a NAICS code is "maroon."</li>
       <li>This list is matched to your ICP &mdash; large general contractors, specialty subcontractors, and contractor-serving distributors:</li>
     </ul>
-    <div class="copyblock"><span class="cb-label">Paste into bulk add</span><button class="copy-btn">Copy</button><pre>236116
-236210
-236220
-237110
-237310
-237990
-238110
-238120
-238140
-238160
-238210
-238220
-238310
-238330
-238910
-238990
-423310
-423320
-423330
-423390
-423610
-423720
-423730</pre></div>
-    <details class="ref"><summary>&#128064; What each code means &mdash; open this, it's worth a look (just don't paste it)</summary>
-      <table><tr><th>Code</th><th>Industry</th></tr>
-      <tr><td class="mono">236116</td><td>New Multifamily Housing Construction (GCs)</td></tr>
-<tr><td class="mono">236210</td><td>Industrial Building Construction (GCs)</td></tr>
-<tr><td class="mono">236220</td><td>Commercial &amp; Institutional Building Construction (your core GC code)</td></tr>
-<tr><td class="mono">237110</td><td>Water &amp; Sewer Line Construction</td></tr>
-<tr><td class="mono">237310</td><td>Highway, Street &amp; Bridge Construction</td></tr>
-<tr><td class="mono">237990</td><td>Other Heavy &amp; Civil Engineering Construction</td></tr>
-<tr><td class="mono">238110</td><td>Poured Concrete Foundation &amp; Structure Contractors</td></tr>
-<tr><td class="mono">238120</td><td>Structural Steel &amp; Precast Concrete Contractors</td></tr>
-<tr><td class="mono">238140</td><td>Masonry Contractors</td></tr>
-<tr><td class="mono">238160</td><td>Roofing Contractors</td></tr>
-<tr><td class="mono">238210</td><td>Electrical Contractors</td></tr>
-<tr><td class="mono">238220</td><td>Plumbing, Heating &amp; AC Contractors (mechanical / HVAC / fire sprinkler)</td></tr>
-<tr><td class="mono">238310</td><td>Drywall &amp; Insulation Contractors</td></tr>
-<tr><td class="mono">238330</td><td>Flooring Contractors</td></tr>
-<tr><td class="mono">238910</td><td>Site Preparation Contractors</td></tr>
-<tr><td class="mono">238990</td><td>All Other Specialty Trade Contractors</td></tr>
-<tr><td class="mono">423310</td><td>Lumber, Plywood &amp; Millwork Wholesalers (contractor-serving)</td></tr>
-<tr><td class="mono">423320</td><td>Brick, Stone &amp; Construction Material Wholesalers</td></tr>
-<tr><td class="mono">423330</td><td>Roofing, Siding &amp; Insulation Wholesalers</td></tr>
-<tr><td class="mono">423390</td><td>Other Construction Material Wholesalers</td></tr>
-<tr><td class="mono">423610</td><td>Electrical Apparatus Wholesalers</td></tr>
-<tr><td class="mono">423720</td><td>Plumbing &amp; Heating Equipment Wholesalers</td></tr>
-<tr><td class="mono">423730</td><td>Warm Air Heating &amp; AC Equipment Wholesalers</td></tr>
-      </table>
+    <div class="copyblock"><span class="cb-label">Paste into bulk add</span><button class="copy-btn">Copy</button><pre id="naicsPre"></pre></div>
+    <details class="ref"><summary>&#128064; What each code means &mdash; open this, it's worth a look (you can add &amp; remove codes for yourself)</summary>
+      <table id="naicsTable"><tr><th>Code</th><th>Industry</th><th></th></tr></table>
+      <div class="naics-add">
+        <input id="naicsCode" inputmode="numeric" maxlength="6" placeholder="NAICS code">
+        <input id="naicsDesc" placeholder="What it is (optional)">
+        <button id="naicsAddBtn">Add</button>
+      </div>
+      <ul class="mini" style="margin-top:10px">
+        <li>Click <b>&times;</b> to drop a code from your list &mdash; <b>Restore</b> brings it back.</li>
+        <li>Your changes save in this browser and update the copy list above automatically.</li>
+      </ul>
     </details>
     <div class="callout tip"><div class="callout-title">&#128161; Found a perfect prospect? Steal their code.</div>
     <ul class="mini">
@@ -646,6 +616,57 @@ Okay, I'll send an invite and I'll give you a call then."</div>
   tbC.addEventListener('click',function(){location.hash='#commercial'});
   window.addEventListener('hashchange',render);
   render();
+  var NAICS_DATA=[["236116", "New Multifamily Housing Construction (GCs)"], ["236210", "Industrial Building Construction (GCs)"], ["236220", "Commercial & Institutional Building Construction (your core GC code)"], ["237110", "Water & Sewer Line Construction"], ["237310", "Highway, Street & Bridge Construction"], ["237990", "Other Heavy & Civil Engineering Construction"], ["238110", "Poured Concrete Foundation & Structure Contractors"], ["238120", "Structural Steel & Precast Concrete Contractors"], ["238140", "Masonry Contractors"], ["238160", "Roofing Contractors"], ["238210", "Electrical Contractors"], ["238220", "Plumbing, Heating & AC Contractors (mechanical / HVAC / fire sprinkler)"], ["238310", "Drywall & Insulation Contractors"], ["238330", "Flooring Contractors"], ["238910", "Site Preparation Contractors"], ["238990", "All Other Specialty Trade Contractors"], ["423310", "Lumber, Plywood & Millwork Wholesalers (contractor-serving)"], ["423320", "Brick, Stone & Construction Material Wholesalers"], ["423330", "Roofing, Siding & Insulation Wholesalers"], ["423390", "Other Construction Material Wholesalers"], ["423610", "Electrical Apparatus Wholesalers"], ["423720", "Plumbing & Heating Equipment Wholesalers"], ["423730", "Warm Air Heating & AC Equipment Wholesalers"]];
+  var NKEY='zi-naics-joshua-puvogel';
+  var nstate={removed:[],added:[]};
+  try{var ns=JSON.parse(localStorage.getItem(NKEY)||'{}');if(ns.removed)nstate.removed=ns.removed;if(ns.added)nstate.added=ns.added;}catch(e){}
+  function nsave(){try{localStorage.setItem(NKEY,JSON.stringify(nstate))}catch(e){}}
+  function renderNaics(){
+    var pre=document.getElementById('naicsPre');
+    var table=document.getElementById('naicsTable');
+    if(!pre||!table)return;
+    var codes=[];
+    NAICS_DATA.forEach(function(d){if(nstate.removed.indexOf(d[0])===-1)codes.push(d[0])});
+    nstate.added.forEach(function(d){codes.push(d[0])});
+    pre.textContent=codes.join('\n');
+    while(table.rows.length>1)table.deleteRow(1);
+    NAICS_DATA.forEach(function(d){
+      var removed=nstate.removed.indexOf(d[0])>-1;
+      var tr=table.insertRow(-1);
+      if(removed)tr.className='removed';
+      var c0=tr.insertCell(0);c0.textContent=d[0];c0.className='mono';
+      tr.insertCell(1).textContent=d[1];
+      var act=tr.insertCell(2);
+      var b=document.createElement('button');
+      if(removed){b.className='row-restore';b.textContent='Restore';b.onclick=function(){nstate.removed=nstate.removed.filter(function(x){return x!==d[0]});nsave();renderNaics()}}
+      else{b.className='row-x';b.title='Remove from my list';b.innerHTML='&times;';b.onclick=function(){nstate.removed.push(d[0]);nsave();renderNaics()}}
+      act.appendChild(b);
+    });
+    nstate.added.forEach(function(d,i){
+      var tr=table.insertRow(-1);
+      var c0=tr.insertCell(0);c0.textContent=d[0];c0.className='mono';
+      tr.insertCell(1).textContent=d[1]||'Added by you';
+      var act=tr.insertCell(2);
+      var b=document.createElement('button');b.className='row-x';b.title='Remove';b.innerHTML='&times;';
+      b.onclick=function(){nstate.added.splice(i,1);nsave();renderNaics()};
+      act.appendChild(b);
+    });
+  }
+  var addBtn=document.getElementById('naicsAddBtn');
+  if(addBtn){
+    function addCode(){
+      var ci=document.getElementById('naicsCode'),di=document.getElementById('naicsDesc');
+      var code=ci.value.replace(/\D/g,'');
+      if(code.length<2||code.length>6){ci.focus();return}
+      nstate.added.push([code,di.value.trim()]);nsave();
+      ci.value='';di.value='';ci.focus();
+      renderNaics();
+    }
+    addBtn.addEventListener('click',addCode);
+    document.getElementById('naicsCode').addEventListener('keydown',function(e){if(e.key==='Enter')addCode()});
+    document.getElementById('naicsDesc').addEventListener('keydown',function(e){if(e.key==='Enter')addCode()});
+  }
+  renderNaics();
   document.querySelectorAll('.copy-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
       var text=btn.parentElement.querySelector('pre').textContent;

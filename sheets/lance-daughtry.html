@@ -90,6 +90,13 @@ details.ref th{background:var(--stable);color:#fff;text-align:left;padding:8px 1
 details.ref td{padding:7px 10px;border-bottom:1px solid #ddd}
 details.ref tr:nth-child(even) td{background:var(--gray)}
 .mono{font-family:'SF Mono',Menlo,Consolas,monospace;font-weight:600;color:var(--stable)}
+.naics-add{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.naics-add input{flex:1;min-width:130px;border:1px solid #b5b5c8;border-radius:8px;padding:8px 12px;font-family:'Poppins',Arial,sans-serif;font-size:14px;background:#fff}
+.naics-add button{background:var(--fresh);color:#fff;border:none;border-radius:999px;padding:8px 26px;font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:13px;cursor:pointer}
+.naics-add button:hover{background:var(--energetic)}
+.row-x{background:none;border:none;color:var(--passionate);font-weight:600;font-size:17px;cursor:pointer;line-height:1;padding:2px 6px}
+.row-restore{background:none;border:none;color:var(--energetic);font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:12px;cursor:pointer;padding:2px 4px}
+#naicsTable tr.removed td:not(:last-child){opacity:.4;text-decoration:line-through}
 ol.mini{margin:10px 0 4px 22px;font-size:15px}
 ol.mini li{margin-bottom:6px}
 ul.mini{margin:10px 0 4px 22px;font-size:15px}
@@ -284,67 +291,18 @@ Hawaii</pre></div>
       <li>NAICS codes are government classifications: if industry is "red," a NAICS code is "maroon."</li>
       <li>This list is matched to your ICP &mdash; enterprise building product manufacturers, suppliers &amp; distributors, and FF&amp;E:</li>
     </ul>
-    <div class="copyblock"><span class="cb-label">Paste into bulk add</span><button class="copy-btn">Copy</button><pre>324122
-327993
-321911
-332321
-321918
-337110
-327420
-327320
-327331
-327390
-332312
-332322
-333414
-333415
-33512
-332913
-326191
-325510
-327211
-327215
-423310
-423320
-423330
-423390
-423610
-423720
-423730
-423210
-423440</pre></div>
-    <details class="ref"><summary>&#128064; What each code means &mdash; open this, it's worth a look (just don't paste it)</summary>
-      <table><tr><th>Code</th><th>Industry</th></tr>
-      <tr><td class="mono">324122</td><td>Asphalt Shingle &amp; Coating Materials Mfg (roofing)</td></tr>
-<tr><td class="mono">327993</td><td>Mineral Wool Mfg (insulation)</td></tr>
-<tr><td class="mono">321911</td><td>Wood Window &amp; Door Mfg</td></tr>
-<tr><td class="mono">332321</td><td>Metal Window &amp; Door Mfg</td></tr>
-<tr><td class="mono">321918</td><td>Other Millwork incl. Flooring</td></tr>
-<tr><td class="mono">337110</td><td>Wood Kitchen Cabinet &amp; Countertop Mfg</td></tr>
-<tr><td class="mono">327420</td><td>Gypsum Product Mfg (wall &amp; ceiling)</td></tr>
-<tr><td class="mono">327320</td><td>Ready-Mix Concrete Mfg</td></tr>
-<tr><td class="mono">327331</td><td>Concrete Block &amp; Brick Mfg</td></tr>
-<tr><td class="mono">327390</td><td>Other Concrete Product Mfg</td></tr>
-<tr><td class="mono">332312</td><td>Fabricated Structural Metal Mfg</td></tr>
-<tr><td class="mono">332322</td><td>Sheet Metal Work Mfg</td></tr>
-<tr><td class="mono">333414</td><td>Heating Equipment Mfg</td></tr>
-<tr><td class="mono">333415</td><td>AC, Refrigeration &amp; Warm Air Heating Mfg (HVAC)</td></tr>
-<tr><td class="mono">33512</td><td>Lighting Fixture Mfg (whole family)</td></tr>
-<tr><td class="mono">332913</td><td>Plumbing Fixture Fitting &amp; Trim Mfg</td></tr>
-<tr><td class="mono">326191</td><td>Plastics Plumbing Fixture Mfg</td></tr>
-<tr><td class="mono">325510</td><td>Paint &amp; Coating Mfg (specialty coatings)</td></tr>
-<tr><td class="mono">327211</td><td>Flat Glass Mfg</td></tr>
-<tr><td class="mono">327215</td><td>Glass Product Mfg from Purchased Glass</td></tr>
-<tr><td class="mono">423310</td><td>Lumber, Plywood &amp; Millwork Wholesalers</td></tr>
-<tr><td class="mono">423320</td><td>Brick, Stone &amp; Construction Material Wholesalers</td></tr>
-<tr><td class="mono">423330</td><td>Roofing, Siding &amp; Insulation Wholesalers</td></tr>
-<tr><td class="mono">423390</td><td>Other Construction Material Wholesalers</td></tr>
-<tr><td class="mono">423610</td><td>Electrical Apparatus Wholesalers</td></tr>
-<tr><td class="mono">423720</td><td>Plumbing &amp; Heating Equipment Wholesalers</td></tr>
-<tr><td class="mono">423730</td><td>Warm Air Heating &amp; AC Equipment Wholesalers</td></tr>
-<tr><td class="mono">423210</td><td>Furniture Wholesalers (FF&amp;E)</td></tr>
-<tr><td class="mono">423440</td><td>Other Commercial Equipment Wholesalers (FF&amp;E)</td></tr>
-      </table>
+    <div class="copyblock"><span class="cb-label">Paste into bulk add</span><button class="copy-btn">Copy</button><pre id="naicsPre"></pre></div>
+    <details class="ref"><summary>&#128064; What each code means &mdash; open this, it's worth a look (you can add &amp; remove codes for yourself)</summary>
+      <table id="naicsTable"><tr><th>Code</th><th>Industry</th><th></th></tr></table>
+      <div class="naics-add">
+        <input id="naicsCode" inputmode="numeric" maxlength="6" placeholder="NAICS code">
+        <input id="naicsDesc" placeholder="What it is (optional)">
+        <button id="naicsAddBtn">Add</button>
+      </div>
+      <ul class="mini" style="margin-top:10px">
+        <li>Click <b>&times;</b> to drop a code from your list &mdash; <b>Restore</b> brings it back.</li>
+        <li>Your changes save in this browser and update the copy list above automatically.</li>
+      </ul>
     </details>
     <div class="callout tip"><div class="callout-title">&#128161; Found a perfect prospect? Steal their code.</div>
     <ul class="mini">
@@ -661,6 +619,57 @@ Okay, I'll send an invite and I'll give you a call then."</div>
   tbC.addEventListener('click',function(){location.hash='#commercial'});
   window.addEventListener('hashchange',render);
   render();
+  var NAICS_DATA=[["324122", "Asphalt Shingle & Coating Materials Mfg (roofing)"], ["327993", "Mineral Wool Mfg (insulation)"], ["321911", "Wood Window & Door Mfg"], ["332321", "Metal Window & Door Mfg"], ["321918", "Other Millwork incl. Flooring"], ["337110", "Wood Kitchen Cabinet & Countertop Mfg"], ["327420", "Gypsum Product Mfg (wall & ceiling)"], ["327320", "Ready-Mix Concrete Mfg"], ["327331", "Concrete Block & Brick Mfg"], ["327390", "Other Concrete Product Mfg"], ["332312", "Fabricated Structural Metal Mfg"], ["332322", "Sheet Metal Work Mfg"], ["333414", "Heating Equipment Mfg"], ["333415", "AC, Refrigeration & Warm Air Heating Mfg (HVAC)"], ["33512", "Lighting Fixture Mfg (whole family)"], ["332913", "Plumbing Fixture Fitting & Trim Mfg"], ["326191", "Plastics Plumbing Fixture Mfg"], ["325510", "Paint & Coating Mfg (specialty coatings)"], ["327211", "Flat Glass Mfg"], ["327215", "Glass Product Mfg from Purchased Glass"], ["423310", "Lumber, Plywood & Millwork Wholesalers"], ["423320", "Brick, Stone & Construction Material Wholesalers"], ["423330", "Roofing, Siding & Insulation Wholesalers"], ["423390", "Other Construction Material Wholesalers"], ["423610", "Electrical Apparatus Wholesalers"], ["423720", "Plumbing & Heating Equipment Wholesalers"], ["423730", "Warm Air Heating & AC Equipment Wholesalers"], ["423210", "Furniture Wholesalers (FF&E)"], ["423440", "Other Commercial Equipment Wholesalers (FF&E)"]];
+  var NKEY='zi-naics-lance-daughtry';
+  var nstate={removed:[],added:[]};
+  try{var ns=JSON.parse(localStorage.getItem(NKEY)||'{}');if(ns.removed)nstate.removed=ns.removed;if(ns.added)nstate.added=ns.added;}catch(e){}
+  function nsave(){try{localStorage.setItem(NKEY,JSON.stringify(nstate))}catch(e){}}
+  function renderNaics(){
+    var pre=document.getElementById('naicsPre');
+    var table=document.getElementById('naicsTable');
+    if(!pre||!table)return;
+    var codes=[];
+    NAICS_DATA.forEach(function(d){if(nstate.removed.indexOf(d[0])===-1)codes.push(d[0])});
+    nstate.added.forEach(function(d){codes.push(d[0])});
+    pre.textContent=codes.join('\n');
+    while(table.rows.length>1)table.deleteRow(1);
+    NAICS_DATA.forEach(function(d){
+      var removed=nstate.removed.indexOf(d[0])>-1;
+      var tr=table.insertRow(-1);
+      if(removed)tr.className='removed';
+      var c0=tr.insertCell(0);c0.textContent=d[0];c0.className='mono';
+      tr.insertCell(1).textContent=d[1];
+      var act=tr.insertCell(2);
+      var b=document.createElement('button');
+      if(removed){b.className='row-restore';b.textContent='Restore';b.onclick=function(){nstate.removed=nstate.removed.filter(function(x){return x!==d[0]});nsave();renderNaics()}}
+      else{b.className='row-x';b.title='Remove from my list';b.innerHTML='&times;';b.onclick=function(){nstate.removed.push(d[0]);nsave();renderNaics()}}
+      act.appendChild(b);
+    });
+    nstate.added.forEach(function(d,i){
+      var tr=table.insertRow(-1);
+      var c0=tr.insertCell(0);c0.textContent=d[0];c0.className='mono';
+      tr.insertCell(1).textContent=d[1]||'Added by you';
+      var act=tr.insertCell(2);
+      var b=document.createElement('button');b.className='row-x';b.title='Remove';b.innerHTML='&times;';
+      b.onclick=function(){nstate.added.splice(i,1);nsave();renderNaics()};
+      act.appendChild(b);
+    });
+  }
+  var addBtn=document.getElementById('naicsAddBtn');
+  if(addBtn){
+    function addCode(){
+      var ci=document.getElementById('naicsCode'),di=document.getElementById('naicsDesc');
+      var code=ci.value.replace(/\D/g,'');
+      if(code.length<2||code.length>6){ci.focus();return}
+      nstate.added.push([code,di.value.trim()]);nsave();
+      ci.value='';di.value='';ci.focus();
+      renderNaics();
+    }
+    addBtn.addEventListener('click',addCode);
+    document.getElementById('naicsCode').addEventListener('keydown',function(e){if(e.key==='Enter')addCode()});
+    document.getElementById('naicsDesc').addEventListener('keydown',function(e){if(e.key==='Enter')addCode()});
+  }
+  renderNaics();
   document.querySelectorAll('.copy-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
       var text=btn.parentElement.querySelector('pre').textContent;
