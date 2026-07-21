@@ -119,28 +119,19 @@ footer a{color:var(--energetic);text-decoration:none}
 .tabs{max-width:860px;margin:18px auto 0;padding:0 20px;display:flex;gap:10px}
 .tab-btn{flex:1;border:none;border-radius:999px;padding:13px 18px;font-family:'Poppins',Arial,sans-serif;font-weight:600;font-size:15px;cursor:pointer;background:#fff;color:var(--stable);box-shadow:0 1px 4px rgba(0,0,0,.06);transition:background .15s}
 .tab-btn.active{background:var(--stable);color:#fff}
-.part{background:#fff;border-radius:14px;margin-bottom:18px;box-shadow:0 1px 4px rgba(0,0,0,.06);padding:18px 24px}
-.part>summary{cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;gap:14px;color:var(--stable);font-weight:600;font-size:17px}
-.part>summary::-webkit-details-marker{display:none}
-.part-num{flex:none;width:36px;height:36px;border-radius:50%;background:var(--stable);color:#fff;font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:center}
-.part>summary::after{content:"\25BE";margin-left:auto;color:var(--fresh);font-size:20px;transition:transform .2s}
-.part[open]>summary::after{transform:rotate(180deg)}
-.part-body{padding:14px 0 4px 50px}
-@media(max-width:600px){.part-body{padding:14px 0 4px 0}}
-.script{background:var(--gray);border-left:4px solid var(--fresh);border-radius:0 8px 8px 0;padding:14px 18px;font-style:italic;font-size:15.5px;color:var(--stable);font-weight:500;line-height:1.7}
-.cue{color:var(--subtle);font-size:13px;margin:8px 0 0 4px;font-weight:200}
-.personas{display:flex;flex-direction:column;gap:10px;margin-top:12px}
+.scriptpage{background:#fff;border-radius:14px;box-shadow:0 1px 4px rgba(0,0,0,.06);padding:16px 32px 24px}
+@media(max-width:600px){.scriptpage{padding:8px 18px 16px}}
+.sline{display:grid;grid-template-columns:140px 1fr;gap:22px;padding:26px 0}
+@media(max-width:600px){.sline{grid-template-columns:1fr;gap:6px;padding:18px 0}}
+.slbl{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--energetic);padding-top:7px}
+.say{font-style:italic;color:var(--stable);font-size:16.5px;font-weight:500;line-height:1.75}
+.cue{color:var(--subtle);font-size:13px;margin-top:8px;font-weight:200}
+.personas{display:flex;flex-direction:column;gap:10px;margin-top:16px}
 .persona{border:1px solid #dcdce8;border-radius:10px;padding:12px 16px;background:#fbfbfd}
 .persona>summary{cursor:pointer;user-select:none;list-style:none;font-weight:600;color:var(--stable);font-size:15px;display:flex;align-items:center;justify-content:space-between;gap:10px}
 .persona>summary::-webkit-details-marker{display:none}
 .persona>summary::after{content:"+";color:var(--fresh);font-weight:600;font-size:20px;flex:none}
 .persona[open]>summary::after{content:"\2212"}
-.bucket{margin-top:12px;border-top:1px solid #e6e6ef;padding-top:10px}
-.bucket-label{font-size:11px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--energetic);margin-bottom:6px;cursor:pointer;user-select:none;list-style:none;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.bucket-label::-webkit-details-marker{display:none}
-.bucket-label::after{content:"+";color:var(--fresh);font-size:16px;font-weight:600;flex:none}
-.bucket[open] .bucket-label::after{content:"\2212"}
-.bucket.switch .bucket-label{color:var(--fireball)}
 .quote{font-style:italic;color:var(--stable);border-left:3px solid var(--fresh);padding:4px 0 4px 12px;margin:6px 0;font-size:15px}
 .orline{color:var(--subtle);font-size:13px;margin-left:14px;font-weight:200}
 .qlist{margin:10px 0 4px 22px;font-size:15px}
@@ -471,56 +462,56 @@ Leadership Changes</pre></div>
 
 <div id="pane-comm" hidden>
 <div class="wrap">
-<details class="part" open>
-  <summary><span class="part-num">1</span>Pattern Interrupt</summary>
-  <div class="part-body">
-    <div class="script">"Hey this is Josh, did I catch you at a bad time?"</div>
-    <p class="cue">(Pause)</p>
-  </div>
-</details>
+<div class="scriptpage">
 
-<details class="part" open>
-  <summary><span class="part-num">2</span>Permission</summary>
-  <div class="part-body">
-    <div class="script">"Can I take 30 seconds&hellip; tell you why I called&hellip;.. you tell me if it makes sense to talk further&hellip; fair?"</div>
-    <p class="cue">(Pause)</p>
+<div class="sline">
+  <div class="slbl">Pattern Interrupt</div>
+  <div>
+    <div class="say">"Hey this is Josh, did I catch you at a bad time?"</div>
+    <div class="cue">(Pause)</div>
   </div>
-</details>
+</div>
 
-<details class="part" open>
-  <summary><span class="part-num">3</span>30-Second Commercial</summary>
-  <div class="part-body">
-    <div class="script">"Bottom line&hellip; I'm with Hubexo, we're a construction data company&hellip; People we work with (<b>BEFORE</b> they worked with us), said things like&hellip;"</div>
-    <p style="margin-top:12px;font-size:15px">Click the persona you're calling. Use two or three of their lines &mdash; word for word, slow.</p>
+<div class="sline">
+  <div class="slbl">Permission</div>
+  <div>
+    <div class="say">"Can I take 30 seconds&hellip; tell you why I called&hellip;.. you tell me if it makes sense to talk further&hellip; fair?"</div>
+    <div class="cue">(Pause)</div>
+  </div>
+</div>
+
+<div class="sline">
+  <div class="slbl">30-Second Commercial</div>
+  <div>
+    <div class="say">"Bottom line&hellip; I'm with Hubexo, we're a construction data company&hellip; People we work with (<b>BEFORE</b> they worked with us), said things like&hellip;"</div>
+    <div class="cue">Click the persona you're calling &mdash; use two or three of their lines, word for word, slow.</div>
     <div class="personas">
 <details class="persona"><summary>Principal &mdash; Small / Mid-Size Firm (usually doing nothing formal)</summary>
-<details class="bucket"><summary class="bucket-label">If they're doing nothing about it today &mdash; the cost of staying the same</summary>
 <div class="quote">"Specs get written by whoever has time that week&hellip;"</div>
 <div class="orline">or&hellip;&hellip;</div>
 <div class="quote">"We reuse old masters and pray nothing outdated slips through&hellip;"</div>
 <div class="orline">or lastly&hellip;&hellip;</div>
-<div class="quote">"Spec QA eats our nights and weekends right at deadline&hellip;"</div></details></details>
+<div class="quote">"Spec QA eats our nights and weekends right at deadline&hellip;"</div></details>
 <details class="persona"><summary>Director of Specifications / Technology &mdash; Large Firm (usually already has a spec system)</summary>
-<details class="bucket switch"><summary class="bucket-label">If they already use something &mdash; problems with the tool they've got</summary>
 <div class="quote">"We've bought spec software before, but every office still does specs differently&hellip;"</div>
 <div class="orline">or&hellip;&hellip;</div>
 <div class="quote">"Our masters are out of date and nobody owns updating them&hellip;"</div>
 <div class="orline">or lastly&hellip;&hellip;</div>
-<div class="quote">"Manufacturer content lives in PDFs and emails &mdash; nothing plugs into the spec workflow&hellip;"</div></details></details>
+<div class="quote">"Manufacturer content lives in PDFs and emails &mdash; nothing plugs into the spec workflow&hellip;"</div></details>
     </div>
   </div>
-</details>
+</div>
 
-<details class="part" open>
-  <summary><span class="part-num">4</span>Hook Question</summary>
-  <div class="part-body">
-    <div class="script">"Based on that&hellip;&hellip;&hellip;. any reason to talk&hellip;.&hellip;&hellip;&hellip; further?........"</div>
+<div class="sline">
+  <div class="slbl">Hook Question</div>
+  <div>
+    <div class="say">"Based on that&hellip;&hellip;&hellip;. any reason to talk&hellip;.&hellip;&hellip;&hellip; further?........"</div>
   </div>
-</details>
+</div>
 
-<details class="part" open>
-  <summary><span class="part-num">5</span>They engage? Pick 2&ndash;3 questions</summary>
-  <div class="part-body">
+<div class="sline">
+  <div class="slbl">They Engage? Pick 2&ndash;3</div>
+  <div>
     <ul class="qlist">
       <li>"What do you mean?"</li>
       <li>"Tell me more&hellip;"</li>
@@ -531,12 +522,12 @@ Leadership Changes</pre></div>
       <li>"Fast forward a year from now&hellip; can you put this on the backburner?.... or&hellip;."</li>
     </ul>
   </div>
-</details>
+</div>
 
-<details class="part" open>
-  <summary><span class="part-num">6</span>Book the Meeting</summary>
-  <div class="part-body">
-    <div class="script">"Can I make a suggestion?<br>
+<div class="sline">
+  <div class="slbl">Book the Meeting</div>
+  <div>
+    <div class="say">"Can I make a suggestion?<br>
 I know I called and interrupted your day&hellip;<br>
 Does it make sense to book a separate time to talk further?<br>
 &hellip;..<br>
@@ -544,7 +535,9 @@ Great, how does (date) at (time) look for you?<br>
 &hellip;..<br>
 Okay, I'll send an invite and I'll give you a call then."</div>
   </div>
-</details>
+</div>
+
+</div>
 </div>
 </div>
 
