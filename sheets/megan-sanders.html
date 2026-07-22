@@ -376,15 +376,18 @@ Plastics, Packaging & Containers</pre></div>
   <div class="step-body">
     <div class="where"><b>Where:</b> Flip to the <b>Contacts</b> tab &rarr; type <span class="kbd">job title</span> in the search filters box &rarr; <span class="kbd">Add Job Titles in Bulk</span> &rarr; paste &rarr; <span class="kbd">Apply</span>.</div>
     <p>Your best titles from the playbook. (We cut CRO and President on purpose: don't include titles that aren't your main buyers.)</p>
-    <div class="copyblock"><span class="cb-label">Paste into bulk add</span><button class="copy-btn">Copy</button><pre>VP of Sales
-Vice President of Sales
-National Sales Manager
-VP of Marketing
-Vice President of Marketing
-Director of Market Development
-Director of Business Development
-Chief Commercial Officer
-National Accounts Director</pre></div>
+    <div class="copyblock"><span class="cb-label">Paste into bulk add</span><button class="copy-btn">Copy</button><pre id="titlesPre"></pre></div>
+    <details class="ref"><summary>&#128064; Make this list yours &mdash; add or remove titles</summary>
+      <table id="titlesTable"><tr><th>Job title</th><th></th></tr></table>
+      <div class="naics-add">
+        <input id="titleInput" placeholder="Job title">
+        <button id="titleAddBtn">Add</button>
+      </div>
+      <ul class="mini" style="margin-top:10px">
+        <li>Click <b>&times;</b> to drop a title &mdash; <b>Restore</b> brings it back.</li>
+        <li>Your changes save in this browser and update the copy list above automatically.</li>
+      </ul>
+    </details>
   </div>
 </div>
 
@@ -645,6 +648,54 @@ Okay, I'll send an invite and I'll give you a call then."</div>
     document.getElementById('naicsDesc').addEventListener('keydown',function(e){if(e.key==='Enter')addCode()});
   }
   renderNaics();
+  var TITLES_DATA=["VP of Sales", "Vice President of Sales", "National Sales Manager", "VP of Marketing", "Vice President of Marketing", "Director of Market Development", "Director of Business Development", "Chief Commercial Officer", "National Accounts Director"];
+  var TKEY='zi-titles-megan-sanders';
+  var tstate={removed:[],added:[]};
+  try{var ts=JSON.parse(localStorage.getItem(TKEY)||'{}');if(ts.removed)tstate.removed=ts.removed;if(ts.added)tstate.added=ts.added;}catch(e){}
+  function tsave(){try{localStorage.setItem(TKEY,JSON.stringify(tstate))}catch(e){}}
+  function renderTitles(){
+    var pre=document.getElementById('titlesPre');
+    var table=document.getElementById('titlesTable');
+    if(!pre||!table)return;
+    var list=[];
+    TITLES_DATA.forEach(function(d){if(tstate.removed.indexOf(d)===-1)list.push(d)});
+    tstate.added.forEach(function(d){list.push(d)});
+    pre.textContent=list.join('\n');
+    while(table.rows.length>1)table.deleteRow(1);
+    TITLES_DATA.forEach(function(d){
+      var removed=tstate.removed.indexOf(d)>-1;
+      var tr=table.insertRow(-1);
+      if(removed)tr.className='removed';
+      tr.insertCell(0).textContent=d;
+      var act=tr.insertCell(1);
+      var b=document.createElement('button');
+      if(removed){b.className='row-restore';b.textContent='Restore';b.onclick=function(){tstate.removed=tstate.removed.filter(function(x){return x!==d});tsave();renderTitles()}}
+      else{b.className='row-x';b.title='Remove from my list';b.innerHTML='&times;';b.onclick=function(){tstate.removed.push(d);tsave();renderTitles()}}
+      act.appendChild(b);
+    });
+    tstate.added.forEach(function(d,i){
+      var tr=table.insertRow(-1);
+      tr.insertCell(0).textContent=d;
+      var act=tr.insertCell(1);
+      var b=document.createElement('button');b.className='row-x';b.title='Remove';b.innerHTML='&times;';
+      b.onclick=function(){tstate.added.splice(i,1);tsave();renderTitles()};
+      act.appendChild(b);
+    });
+  }
+  var titleAddBtn=document.getElementById('titleAddBtn');
+  if(titleAddBtn){
+    function addTitle(){
+      var ti=document.getElementById('titleInput');
+      var v=ti.value.trim();
+      if(!v){ti.focus();return}
+      tstate.added.push(v);tsave();
+      ti.value='';ti.focus();
+      renderTitles();
+    }
+    titleAddBtn.addEventListener('click',addTitle);
+    document.getElementById('titleInput').addEventListener('keydown',function(e){if(e.key==='Enter')addTitle()});
+  }
+  renderTitles();
   document.querySelectorAll('.copy-btn').forEach(function(btn){
     btn.addEventListener('click',function(){
       var text=btn.parentElement.querySelector('pre').textContent;
